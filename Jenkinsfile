@@ -5,15 +5,9 @@ pipeline {
     }
     stages {
         stage('Test') {
-            agent {
-                dockerfile {
-                    filename 'Dockerfile.dev'
-                    dir 'client'
-                    label 'estonezzz/react-test'
-                }
-            }
             steps {
                 sh '''
+                    docker build -t estonezzz/react-test -f ./client/Dockerfile.dev ./client
                     docker run -e CI=true estonezzz/react-test npm test
                 '''
             }            
