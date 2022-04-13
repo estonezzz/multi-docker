@@ -1,0 +1,40 @@
+{
+   "AWSEBDockerrunVersion" : 2,
+   "containerDefinitions" : [
+       {
+            "name": "client",
+            "image": "estonezzz/multi-client",
+            "hostname": "react",
+            "memory": 128,
+            "essential": false
+       },
+       
+       {
+            "name": "server",
+            "image": "estonezzz/multi-server",
+            "hostname": "api",
+            "memory": 128,
+            "essential": false
+        },
+        {
+            "name": "worker",
+            "image": "estonezzz/multi-worker",
+            "memory": 128,
+            "essential": false
+        },
+        {
+            "name": "nginx",
+            "image": "estonezzz/multi-nginx",
+            "memory": 128,
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": ["client", "server"]
+        }
+   ]
+
+}
